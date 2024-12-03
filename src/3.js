@@ -2,16 +2,21 @@ import {loader} from './utils.js';
 
 var input = loader('3.txt')
 var instructions = input.match(/mul\(\d+,\d+\)|do\(\)|don't\(\)/g)
-var sum = 0;
+var sum1 = 0;
+var sum2 = 0;
 var doing = true;
 instructions.forEach((instruction) => {
     if (instruction === 'do()') {
         doing = true;
     } else if (instruction === "don't()") {
         doing = false;
-    } else if (doing) {
+    } else {
         var [_, a, b] = instruction.match(/(\d+),(\d+)/);
-        sum = sum + (a * b);
+        var product = a * b;
+        sum1 += product;
+        if (doing) {
+            sum2 += product;
+        }
     }
 });
-console.log({ sum });
+console.log({ sum1, sum2 });
